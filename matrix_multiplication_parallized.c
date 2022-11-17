@@ -36,7 +36,7 @@ void randd(){
 
 void * worker( void *arg )
 {
-	int tid, portion_size, portion_remainder, row_start, row_end;  
+	int tid, portion_size, portion_remainder, row_start, row_end, i, j, k;  
 	tid = *(int *)(arg);
 	portion_size = size / num_threads;
 	portion_remainder = size % num_threads;
@@ -46,14 +46,14 @@ void * worker( void *arg )
 	}
 	else{
 		row_start = tid * portion_size + tid;
-		row_end = (tid+1) * portion_size + portion_remainder;
+		row_end = (tid+1) * portion_size + (tid+1);
 	}
 	  
 
-	for (int i = row_start; i < row_end; ++i) {
-		for (int j = 0; j < size; ++j) {
+	for (i = row_start; i < row_end; ++i) {
+		for (j = 0; j < size; ++j) {
 			res[i][j]=0;
-			for (int k = 0; k < size; ++k) { 
+			for (k = 0; k < size; ++k) { 
 				res[i][j] += x[ i ][ k ] * m[ k ][ j ];
 			}
 		}
@@ -100,7 +100,7 @@ int main(){
   	exectime = (tend.tv_sec - tstart.tv_sec) * 1000.0; // sec to ms
   	exectime += (tend.tv_usec - tstart.tv_usec) / 1000.0; // us to ms   
 
-  	printf( "matrix size: %dx%d ,Number of threads: %d\tExecution time:%.3lf sec\n",size,size,num_threads, exectime/1000.0);
+  	printf( "Matrix size: %dx%d ,Number of threads: %d\tExecution time:%.3lf sec\n",size,size,num_threads, exectime/1000.0);
   	
 	
 	return 0;

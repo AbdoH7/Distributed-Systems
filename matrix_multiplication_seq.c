@@ -3,7 +3,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-int size=10000;
+int size=1000;
 double **x;
 double **m;
 double **res;
@@ -43,16 +43,17 @@ void print(double **matrix){
 }
 
 int main(){   
+	int i, j, k;
 	struct timeval tstart, tend;
   	double exectime;
    	init();
 	randd();
 	
 	gettimeofday( &tstart, NULL );
-	for (int i = 0; i < size; i++) {
-        	for (int j = 0; j < size; j++) {
+	for (i = 0; i < size; i++) {
+        	for (j = 0; j < size; j++) {
             	res[i][j] = 0;
-            		for (int k = 0; k < size; k++) {
+            		for (k = 0; k < size; k++) {
                 		res[i][j] += x[i][k] * m[k][j];
             			}
         		}
@@ -62,6 +63,6 @@ int main(){
   	exectime += (tend.tv_usec - tstart.tv_usec) / 1000.0; // us to ms   
   	printf( "Matrix size: %dx%d, Execution time:%.3lf sec\n",size, size, exectime/1000.0);
   	
-  	return 0
+  	return 0;
 }
 
