@@ -13,7 +13,7 @@ void init(double m[size][size])
 }
 
 
-void mmPar(double a[size][size], double b[size][size], double c[size][size])
+void mult(double a[size][size], double b[size][size], double c[size][size])
 {
     int i, j, k;
     #pragma omp parallel for private(i,k)
@@ -30,9 +30,7 @@ int main()
 {
     init(a);
     init(b);
-    initMatrixZeros(c);
 
-    mm(a, b, c);
-    mmPar(a, b, c);
+    mult(a, b, c);
     return 0;
 }
